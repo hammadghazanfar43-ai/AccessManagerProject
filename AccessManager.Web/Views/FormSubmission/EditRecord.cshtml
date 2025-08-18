@@ -1,0 +1,94 @@
+﻿@model Model.FormSubmission
+
+
+@{
+    ViewData["Title"] = "Edit Record";
+}
+
+<h3 class="mb-4">Edit Record</h3>
+
+<div class="card shadow-sm p-4 bg-white">
+    <form asp-action="EditRecord" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label asp-for="Name" class="form-label fw-bold">Name</label>
+                <input asp-for="Name" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="FatherName" class="form-label fw-bold">Father Name</label>
+                <input asp-for="FatherName" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="CNIC" class="form-label fw-bold">CNIC</label>
+                <input asp-for="CNIC" class="form-control form-control-sm" />
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label asp-for="Email" class="form-label fw-bold">Email</label>
+                <input asp-for="Email" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Phone" class="form-label fw-bold">Phone</label>
+                <input asp-for="Phone" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-2">
+                <label asp-for="Age" class="form-label fw-bold">Age</label>
+                <input asp-for="Age" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-2">
+                <label asp-for="DOB" class="form-label fw-bold">Date of Birth</label>
+                <input asp-for="DOB" class="form-control form-control-sm" type="date" />
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label asp-for="MaritalStatus" class="form-label fw-bold">Marital Status</label>
+                <input asp-for="MaritalStatus" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Occupation" class="form-label fw-bold">Occupation</label>
+                <input asp-for="Occupation" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="Gender" class="form-label fw-bold">Gender</label>
+                <input asp-for="Gender" class="form-control form-control-sm" />
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label asp-for="Country" class="form-label fw-bold">Country</label>
+                <input asp-for="Country" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-4">
+                <label asp-for="City" class="form-label fw-bold">City</label>
+                <input asp-for="City" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-2">
+                <label asp-for="CountryCode" class="form-label fw-bold">Country Code</label>
+                <input asp-for="CountryCode" class="form-control form-control-sm" />
+            </div>
+            <div class="col-md-2">
+                <label asp-for="Nationality" class="form-label fw-bold">Nationality</label>
+                <input asp-for="Nationality" class="form-control form-control-sm" />
+            </div>
+        </div>
+
+        <div class="row g-3 mt-3">
+            <div class="col-md-12">
+                <label asp-for="Address" class="form-label fw-bold">Address</label>
+                <input asp-for="Address" class="form-control form-control-sm" />
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-primary btn-sm px-4 me-2">Save</button>
+            <a href="@Url.Action("AllRecords", "FormSubmission")" class="btn btn-secondary btn-sm px-4">Cancel</a>
+        </div>
+    </form>
+</div>

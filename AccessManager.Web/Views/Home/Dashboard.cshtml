@@ -1,0 +1,214 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+
+<hr />
+
+<div class="card shadow-sm p-4 bg-white mt-4">
+    <h4 class="mb-4">Personal Details</h4>
+    <form id="extensionForm" enctype="multipart/form-data" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- First row: Name, Father Name, Picture -->
+        <div class="row g-3 align-items-end">
+            <!-- Name -->
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Name</label>
+                <input type="text" class="form-control form-control-sm" id="Name" name="Name" placeholder="Enter your name" required />
+            </div>
+
+            <!-- Father Name -->
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Father Name</label>
+                <input type="text" class="form-control form-control-sm" id="FatherName" name="FatherName" placeholder="Enter father's name" required />
+            </div>
+
+            <!-- Picture Upload -->
+            <div class="col-md-4 text-center">
+                <label class="form-label fw-bold">Upload Picture</label>
+                <div class="border border-dashed p-3 rounded text-center">
+                    <img id="picturePreview" src="https://via.placeholder.com/150" alt="Preview" class="img-thumbnail mb-2" style="max-width: 150px;" />
+                    <input type="file" class="form-control form-control-sm" id="Picture" name="Picture" accept="image/*" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Second row: CNIC, Email, Phone -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">CNIC</label>
+                <input type="text" class="form-control form-control-sm" id="CNIC" name="CNIC" placeholder="Enter CNIC" required />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Email</label>
+                <input type="email" class="form-control form-control-sm" id="Email" name="Email" placeholder="Enter email" required />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Phone</label>
+                <input type="text" class="form-control form-control-sm" id="Phone" name="Phone" placeholder="Enter phone number" required />
+            </div>
+        </div>
+
+        <!-- Third row: Marital Status, Address -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Marital Status</label>
+                <select class="form-select form-select-sm" id="MaritalStatus" name="MaritalStatus" required>
+                    <option value="">Select</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Widowed">Widowed</option>
+                </select>
+            </div>
+            <div class="col-md-8">
+                <label class="form-label fw-bold">Address</label>
+                <input type="text" class="form-control form-control-sm" id="Address" name="Address" placeholder="Enter address" required />
+            </div>
+        </div>
+
+        <!-- Fourth row: Age, DOB, Nationality -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-2">
+                <label class="form-label fw-bold">Age</label>
+                <input type="number" class="form-control form-control-sm" id="Age" name="Age" placeholder="Age" required />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Date of Birth</label>
+                <input type="date" class="form-control form-control-sm" id="DOB" name="DOB" required />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Nationality</label>
+                <input type="text" class="form-control form-control-sm" id="Nationality" name="Nationality" readonly />
+            </div>
+            <div class="col-md-2">
+                <label class="form-label fw-bold">Country Code</label>
+                <input type="text" class="form-control form-control-sm" id="CountryCode" name="CountryCode" readonly />
+            </div>
+        </div>
+
+        <!-- Fifth row: Occupation, Gender, Country, City -->
+        <div class="row g-3 mt-3">
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Occupation</label>
+                <input type="text" class="form-control form-control-sm" id="Occupation" name="Occupation" placeholder="Enter occupation" />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Gender</label>
+                <select class="form-select form-select-sm" id="Gender" name="Gender">
+                    <option value="">Select</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-bold">Country</label>
+                <select id="CountryId" name="CountryId" class="form-select form-select-sm">
+                    <option value="">-- Select Country --</option>
+                    @foreach (var country in ViewBag.Countries)
+                    {
+                        <option value="@country.Id" data-code="@country.Code" data-nationality="@country.Nationality">
+                            @country.Name
+                        </option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4 mt-3">
+                <label class="form-label fw-bold">City</label>
+                <select class="form-select form-select-sm" id="City" name="City">
+                    <option value="">Select City</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-success btn-sm px-4">Submit</button>
+        </div>
+    </form>
+</div>
+
+<div class="mt-4">
+    <a class="btn btn-primary btn-sm" href="/FormSubmission/AllRecords">View Submitted Users</a>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+
+    <script>
+        // Picture preview
+        $('#Picture').on('change', function (event) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#picturePreview').attr('src', e.target.result);
+            }
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        });
+
+        // Form submission via AJAX
+        $('#extensionForm').submit(function (e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            var selectedCountryName = $('#CountryId option:selected').text();
+            formData.append("Country", selectedCountryName);
+            formData.append("City", $('#City').val());
+            var token = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                url: '/FormSubmission/Submit',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                headers: { 'RequestVerificationToken': token },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        $('#extensionForm')[0].reset();
+                        $('#picturePreview').attr('src', 'https://via.placeholder.com/150');
+                    } else {
+                        toastr.error(response.message || "Server returned an error.");
+                    }
+                },
+                error: function (xhr) {
+                    toastr.error("Something went wrong.");
+                    console.log("Error details:", xhr);
+                }
+            });
+        });
+
+        // Country change event for cities
+        $('#CountryId').on('change', function () {
+            var selected = $(this).find(':selected');
+            var countryId = selected.val();
+            var code = selected.data('code');
+            var nationality = selected.data('nationality');
+            $('#CountryCode').val(code || '');
+            $('#Nationality').val(nationality || '');
+            var cityDropdown = $('#City');
+            cityDropdown.empty().append('<option value="">Select City</option>');
+
+            if (countryId) {
+                $.ajax({
+                    url: '/FormSubmission/GetCitiesByCountry/',
+                    data: { countryId: countryId },
+                    type: 'GET',
+                    success: function (cities) {
+                        $.each(cities, function (i, city) {
+                            cityDropdown.append('<option value="' + city.name + '">' + city.name + '</option>');
+                        });
+                    },
+                    error: function () {
+                        toastr.error("Failed to load cities.");
+                    }
+                });
+            }
+        });
+    </script>
+</div>
+}

@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
+        <h2 class="mb-4 text-center fw-bold">Login</h2>
+
+        <form id="loginForm">
+            <div class="mb-3">
+                <label for="UserName" class="form-label fw-bold">Username</label>
+                <input type="text" id="UserName" name="UserName" class="form-control" placeholder="Enter username" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="Password" class="form-label fw-bold">Password</label>
+                <input type="password" id="Password" name="Password" class="form-control" placeholder="Enter password" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+
+        <div class="mt-3 text-center">
+            <small class="text-muted">© 2025 Your Company</small>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#loginForm').submit(function (e) {
+                e.preventDefault();
+             
+                $.ajax({
+                    type: 'POST',
+                    url: '/Account/Login', // Your controller action
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                           
+
+                            setTimeout(function () {
+                                window.location.href = response.redirectUrl;
+                            }, 1000);
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('An unexpected error occurred.');
+                    }
+                });
+            });
+        });
+    </script>
+}

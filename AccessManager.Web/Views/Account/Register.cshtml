@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="card shadow-sm p-4" style="width: 100%; max-width: 450px;">
+        <h2 class="mb-4 text-center fw-bold">Register</h2>
+
+        <form id="registerForm">
+            <div class="row g-2 mb-2">
+                <div class="col-md-6">
+                    <input type="text" id="FirstName" name="FirstName" placeholder="First Name" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="LastName" name="LastName" placeholder="Last Name" class="form-control" required />
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <input type="email" id="Email" name="Email" placeholder="Email" class="form-control" required />
+            </div>
+
+            <div class="mb-2">
+                <input type="text" id="UserName" name="UserName" placeholder="Username" class="form-control" required />
+            </div>
+
+            <div class="mb-2">
+                <input type="password" id="Password" name="Password" placeholder="Password" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="Confirm Password" class="form-control" required />
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Register</button>
+        </form>
+
+        <div class="mt-3 text-center">
+            <small class="text-muted">Already have an account? <a href="/Account/Login">Login</a></small>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#registerForm").submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Account/Register",
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+
+                            setTimeout(() => {
+                                window.location.href = response.redirectUrl;
+                            }, 1500);
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error("Something went wrong.");
+                    }
+                });
+            });
+        });
+    </script>
+}
