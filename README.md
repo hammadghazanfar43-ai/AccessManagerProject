@@ -110,41 +110,7 @@ AccessManager
 └── SQL Server Database
 ```
 
----
 
-# 📸 Screenshots
-
-## Login
-
-![Login](Screenshots/login.png)
-
-## Register
-
-![Register](Screenshots/register.png)
-
-## Dashboard
-
-![Dashboard](Screenshots/dashboard.png)
-
-## Form Submission
-
-![Form Submission](Screenshots/dashboard-form.png)
-
-## All Records
-
-![Records](Screenshots/all-records.png)
-
-## View Record
-
-![View Record](Screenshots/view-record.png)
-
-## Edit Record
-
-![Edit Record](Screenshots/edit-record.png)
-
-## Swagger API
-
-![Swagger](Screenshots/swagger.png)
 
 ---
 
